@@ -1,17 +1,14 @@
-function getDogImage(qty) {
-  // create a variable to store the form value
-
-  // add quantity at the end of the API link
-  fetch(`https://dog.ceo/api/breeds/image/random/${qty}`)
+function getDogImage(breed) {
+  // add breed at the end of the API link
+  fetch(`https://dog.ceo/api/breed/${breed}/images/random`)
     .then((response) => response.json())
     .then((responseJson) => displayResults(responseJson));
 }
 
-function displayResults(results) {
-  console.log(results);
-  $(".images").html("");
-  results.message.map((imgurl) =>
-    $(".images").append(`<img src="${imgurl}" width="300"/>`)
+function displayResults(responseJson) {
+  //replace the existing image with the new one
+  $(".results-img").replaceWith(
+    `<img src="${responseJson.message}" class="results-img">`
   );
   //display the results section
   $(".results").removeClass("hidden");
@@ -20,8 +17,8 @@ function displayResults(results) {
 function watchForm() {
   $("form").submit((event) => {
     event.preventDefault();
-    const qty = $("form #img-quantity").val();
-    getDogImage(qty);
+    const breed = $("form #img-breed").val();
+    getDogImage(breed);
   });
 }
 
@@ -29,5 +26,3 @@ $(function () {
   console.log("App ready!");
   watchForm();
 });
-
-console.log("test");
