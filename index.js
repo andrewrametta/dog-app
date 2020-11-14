@@ -2,7 +2,8 @@ function getDogImage(breed) {
   // add breed at the end of the API link
   fetch(`https://dog.ceo/api/breed/${breed}/images/random`)
     .then((response) => response.json())
-    .then((responseJson) => displayResults(responseJson));
+    .then((responseJson) => displayResults(responseJson))
+    .catch((error) => console.log("Error"));
 }
 
 function displayResults(responseJson) {
@@ -12,6 +13,13 @@ function displayResults(responseJson) {
   );
   //display the results section
   $(".results").removeClass("hidden");
+}
+
+function displayError(responseJson) {
+  //replace the existing image with the new one
+  $(".error").html(
+    `<h2>"${responseJson.status} + ${responseJson.code}+ ${responseJson.status}"</h2>`
+  );
 }
 
 function watchForm() {
