@@ -29,3 +29,5 @@ $(function () {
   console.log("App ready!");
   watchForm();
 });
+
+console.log("test");
